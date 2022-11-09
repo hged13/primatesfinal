@@ -1,0 +1,97 @@
+{
+    "$schema": "https://vega.github.io/schema/vega/v5.json",
+    "padding": 5,
+    "width": 425,
+    "height": 425,
+    "autosize": "pad",
+
+    "title": {
+      "text": "Average Grooming Frequency (per connection) vs Total Connections",
+      "fontSize": 15,
+      "subtitle": "(hover to see primate ID number) "
+    },
+    
+  "axes": [
+      {
+        "orient": "bottom",
+        "scale": "x",
+        "grid": true,
+        "tickCount":6,
+        "title": "Number of Total Connections"
+      },
+      {
+        "orient": "left",
+        "scale": "y",
+        "grid": true,
+        "tickCount":6,
+        "title": "Average Frequency of Grooming"
+      }],
+  
+    "data": [
+      {
+        "name": "nodes",
+        "url": "primatedata.json",
+        "format": {"type": "json", "property": "nodes"}
+        
+      },
+      {
+        "name": "edges",
+        "url": "primatedata.json",
+        "format": {"type": "json", "property": "links"}
+        
+},{
+    "name": "edges2",
+    "url": "primatedata.json",
+    "format": {"type": "json", "property": "nodes"}
+    
+},
+{
+  "name": "trend",
+  "source": "edges2",
+  "transform": [{
+    "type": "regression",
+    "x": "connections",
+    "y": "freq",
+    "as": ["u","v"]
+  }]
+}
+
+],
+  
+    "scales": [
+      {
+        "name": "x",
+        "type": "linear",
+        "domain": {"data": "edges2", "field": "connections"},
+        "range": "width"
+        
+      },
+      {
+        "name": "y",
+        "type": "linear",
+        "domain": {"data": "edges2", "field": "freq"},
+        "range": "height"
+      
+      }
+    ],
+"marks": [{"type": "symbol",
+"from": {"data": "edges2"},
+"encode": {
+    "enter":{"x": {"scale":"x", "field": "connections", "type": "quantitative", "sort": "ascending"},
+"y": {"scale":"y", "field": "freq", "type": "quantitative"},
+"tooltip":{"field":"name"},
+
+"size": {"value":40}}
+}},
+{
+      "type": "line",
+      "from": {"data": "trend"},
+      "encode": {
+        "enter": {
+          "x": {"scale": "x", "field": "u"},
+          "y": {"scale": "y", "field": "v"},
+          "stroke": {"value": "firebrick"}
+        }
+      }
+    }]}
+   

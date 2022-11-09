@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+  #view{
+    position: relative;
+    left:100px; top:120px;
+
+  }
+  #view2{
+    position: relative;
+    left:240px; top:60px;
+
+  }
+  #na{
+    position:relative;
+    top:-550px;
+    left: 450px;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+  }
+  #no{
+    position:relative;
+    bottom:-100px;
+  }
+  #ye{
+    position: relative;
+    bottom: 60px;
+    left:350px;
+  }
+
+</style>
+<body>
+
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.22.0"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vega-embed@6.21.0"></script>
+
+  <div id="view"></div>
+  <div id="view2"></div>
+  <div align="center" id="na" style="width: 500px; height:75px; background-color: #b2cae1"><br>Hypothesis: Primates with a lower number of total grooming connections have connections with a higher frequency of grooming</div>
+  <div align="center" id="no">Data: the data used is from <a href="https://networkrepository.com/mammalia-primate-association-10.php">https://networkrepository.com/mammalia-primate-association-10.php</a><br> It focuses on 'Primate Association Group 10' over a 3 month observation period.<br>
+  The data makes no differentiation between giving and receiving, all grooming interaction is included and treated the same. <br>
+  </div>
+  <div id="ye"> Frequency is not defined with units in the dataset.<br> For the purpose of these visuals, it is relative. 
+    </div>
+
+  
+  <script>
+  	vegaEmbed(
+      '#view',
+      'adjmatrix.json')
+      vegaEmbed(
+      '#view2',
+      'scatter.json')
+      
+
+     
+  </script>
+
+
+</body>
